@@ -1,0 +1,91 @@
+int trigpin1=8;
+int echopin1=7;
+
+long duration;
+int distance;
+int d1=0,d2;
+int prev,prev2;
+unsigned int pv;
+
+void setup() {
+  
+  pinMode(7,OUTPUT);
+  
+  pinMode(8,INPUT);
+  
+  Serial.begin(9600);
+   digitalWrite(7, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(7, HIGH);
+  delayMicroseconds(12);
+  digitalWrite(7, LOW);
+
+  duration = pulseIn(8, HIGH);
+  
+  prev2= duration*0.034/2;
+  prev2=prev;
+  Serial.println(prev);
+  Serial.println(prev2);
+  
+  
+
+}
+
+void loop() {
+  //int i;
+  
+                                          
+  digitalWrite(7, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(7, HIGH);
+  delayMicroseconds(12);
+  digitalWrite(7, LOW);
+
+ // pinMode(8,INPUT);
+  duration = pulseIn(8, HIGH);
+  
+  distance= duration*0.034/2;
+ // prev=distance;
+  //Serial.println(distance);
+ // d1=distance;
+ // duration = pulseIn(10, HIGH);
+ // d2= duration*0.034/2;
+ // Serial.println(d1);
+ // d2=distance-d1;
+ // d1=distance;
+ // Serial.print("difference:");
+ // Serial.println(d2);*/
+  pv=constrain(2*prev - prev2,0,500);
+ // Serial.print(distance);
+// Serial.print("\t");
+ // Serial.println(pv);
+ 
+  
+  
+ // Serial.print("\t");
+  if(pv-10<distance<pv+10)
+  {
+   // Serial.println(distance);
+     prev2=prev;
+     prev=distance;
+     Serial.println(prev);
+     //Serial.print("\t");
+    //Serial.println(pv);
+  
+  
+  }
+  else
+  {
+    
+    Serial.println("error");
+  }
+  delay(1000);
+  
+  
+  //Serial.print("Distance: ");
+ // Serial.println(distance1);
+
+
+}
