@@ -1,115 +1,78 @@
-int trigpin1=7;
-int echopin1=8;
+int trigpin=9;
+int echopin=8;
 int flag=0,a=0;
-int r1,r2,R;
+int r1,r2;
+unsigned int R;
 long duration;
 int distance;
 int d1=0,d2;
 int prev,prev2;
 unsigned int pv;
 void setup() {
-  pinMode(7,OUTPUT);
+  pinMode(trigpin,OUTPUT);
   
   pinMode(8,INPUT);
   
   Serial.begin(9600);
-   digitalWrite(7, LOW);
+   digitalWrite(trigpin, LOW);
   delayMicroseconds(2);
 
-  digitalWrite(7, HIGH);
+  digitalWrite(trigpin, HIGH);
   delayMicroseconds(12);
-  digitalWrite(7, LOW);
+  digitalWrite(trigpin, LOW);
 
   duration = pulseIn(8, HIGH);
   
-  prev2= duration*0.034/2;
-  prev2=prev;
-  Serial.println(prev);
-  Serial.println(prev2);
+  prev= duration*0.034/2;
+  prev2=prev;  
   
-  
-
 }
 
 void loop() {
-  //int i;
+  
    a++;
    pv=(2*prev - prev2);
-  //Serial.println(pv);
-  //Serial.print("\t");
                                           
-  digitalWrite(7, LOW);
+  digitalWrite(trigpin, LOW);
   delayMicroseconds(2);
 
-  digitalWrite(7, HIGH);
+  digitalWrite(trigpin, HIGH);
   delayMicroseconds(12);
-  digitalWrite(7, LOW);
+  digitalWrite(trigpin, LOW);
 
- // pinMode(8,INPUT);
   duration = pulseIn(8, HIGH);
   
   distance= duration*0.034/2;
- // prev=distance;
-  //Serial.println(distance);
- // d1=distance;
- // duration = pulseIn(10, HIGH);
- // d2= duration*0.034/2;
- // Serial.println(d1);
- // d2=distance-d1;
- // d1=distance;
- // Serial.print("difference:");
- // Serial.println(d2);*/
- /* pv=(2*prev - prev2);
-  Serial.println(pv);
-  Serial.print("\t");*/
- // Serial.print(distance);
-// Serial.print("\t");
- // Serial.println(pv);
- 
-  if(flag==0)
-  {
-     prev2=prev;
-     r1=prev2;
-     prev=distance;
-     r2=prev;
-     R=(2*r2-r1);
-  }
+     R=(2*prev - prev2);
+  
 
 
  if(a>6)
  { 
- // Serial.print("\t");
+
   a=7;
-  if(pv-5<=distance && distance<=pv+5)
+  if(R-15<=distance && distance<=R+15)
   {
-   // Serial.println(distance);
-    
-    // Serial.println("prev");
-     Serial.println(prev);
-     //Serial.print("\t");
-    //Serial.println(pv);
-  flag=0;
+   
+     prev2=prev;
+     prev=distance;
+     flag=0;
   
   }
   else
   {
-    // prev2=prev;
-    // prev=distance;
-    if(R-15>distance || distance>R+15)
-    {
     
-       Serial.println("error");
-          Serial.println(R);
-    }
+    prev2=prev;
+    prev=R;
+      
     flag=1;
-  //  Serial.println("error");
+  
   }
  }
-  delay(10);
+  delay(500);
+  Serial.print(R);
+  Serial.print("\t");
+  Serial.println(distance);
   
-  
-  //Serial.print("Distance: ");
- // Serial.println(distance1);
-
 
 }
